@@ -9,12 +9,21 @@ def read_file(filename):
 
 
 def three_largest_number(filename):
-    nums = read_file(filename)
-    for i in range(3):
-        max_num = max(nums)
-        print(max_num)
-        nums.remove(max_num)
 
+    num_list = read_file(filename)
+
+    max_three_num = []
+    cur_max_num = 0
+
+    for i in range(3):
+        for num in num_list:
+            if num > cur_max_num and num not in max_three_num:
+                cur_max_num = num
+        max_three_num += [cur_max_num]
+        cur_max_num = 0
+
+    for num in max_three_num:
+        print(num)
 
 if __name__ == '__main__':
     three_largest_number(sys.argv[1])
