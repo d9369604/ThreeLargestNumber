@@ -14,10 +14,10 @@ class TestThreeLargestNumber(unittest.TestCase):
         self.assertEqual([777], calc_three_largest_number([777]))
 
     def test_only_three_numbers(self):
-        self.assertListEqual([999, 456, 123], calc_three_largest_number([999, 123, 456]))
+        self.assertEqual([999, 456, 123], calc_three_largest_number([999, 123, 456]))
 
     def test_four_numbers(self):
-        self.assertListEqual([999, 777, 456], calc_three_largest_number([999, 123, 456, 777]))
+        self.assertEqual([999, 777, 456], calc_three_largest_number([999, 123, 456, 777]))
 
     def test_many_numbers(self):
         test_data = [111, 234, 173, 999, 34324, 90573, 85928, 1, 0,
