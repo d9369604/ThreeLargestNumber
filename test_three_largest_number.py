@@ -1,29 +1,29 @@
 import unittest
 from three_largest_numbers import calc_three_largest_number
-from my_exception import FormatError
 
 
 class TestThreeLargestNumber(unittest.TestCase):
-    def test_three_largest_number(self):
-        self.assertListEqual([6421, 8723, 9239], calc_three_largest_number('sample.dat'))
+    def test_normal_case(self):
+        test_data = [2134, 3412, 6421, 8723, 9239, 1234, 2345]
+        self.assertEqual([9239, 8723, 6421], calc_three_largest_number(test_data))
 
-    def test_no_such_file(self):
-        self.assertRaises(IOError, calc_three_largest_number, 'no_such_file.txt')
+    def test_no_number(self):
+        self.assertEqual([], calc_three_largest_number([]))
+
+    def test_one_number(self):
+        self.assertEqual([777], calc_three_largest_number([777]))
 
     def test_only_three_numbers(self):
-        self.assertListEqual([123, 456, 999], calc_three_largest_number('only_three_number.txt'))
+        self.assertListEqual([999, 456, 123], calc_three_largest_number([999, 123, 456]))
 
     def test_four_numbers(self):
-        self.assertListEqual([456, 777, 999], calc_three_largest_number('four_numbers.txt'))
+        self.assertListEqual([999, 777, 456], calc_three_largest_number([999, 123, 456, 777]))
 
-    def test_less_than_three_numbers(self):
-        self.assertRaises(FormatError, calc_three_largest_number, 'less_than_three_numbers.txt')
-
-    def test_empty_file(self):
-        self.assertRaises(FormatError, calc_three_largest_number, 'empty.txt')
-
-    def test_string_context_file(self):
-        self.assertRaises(FormatError, calc_three_largest_number, 'string_context.txt')
+    def test_many_numbers(self):
+        test_data = [111, 234, 173, 999, 34324, 90573, 85928, 1, 0,
+                     396849, 8374729, 7727349, 1194545, 338483, 10,
+                     993834, 23212340, 9459230, 94572, 4545, 234254]
+        self.assertEqual([23212340, 9459230, 8374729], calc_three_largest_number(test_data))
 
 if __name__ == '__main__':
     unittest.main()

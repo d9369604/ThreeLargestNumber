@@ -1,40 +1,28 @@
 import sys
-import os
-from my_exception import FormatError
-
-
-def check_data_format(context):
-    if not all([line.replace('\n', '').isdigit() for line in context]):
-        raise FormatError('content format is wrong')
 
 
 def read_file(filename):
-    with open(os.path.join(os.getcwd(), 'input', filename)) as f:
+    with open(filename) as f:
         lines = f.readlines()
 
-    check_data_format(lines)
     lines = [int(line.replace('\n', '')) for line in lines]
-
-    if len(lines) < 3:
-        raise FormatError('Number of numbers is less than 3')
 
     return lines
 
 
-def calc_three_largest_number(filename):
+def calc_three_largest_number(num_list):
 
-    num_list = read_file(filename)
-
-    max_three_num = [0] * 3
+    max_three_num = [0] * 3 if len(num_list) >= 3 else [0] * len(num_list)
 
     for num in num_list:
         if num > max_three_num[0]:
             max_three_num[0] = num
-            for i in range(2):
+            for i in range(len(max_three_num) - 1):
                 if max_three_num[i] > max_three_num[i + 1]:
                     max_three_num[i], max_three_num[i + 1] = max_three_num[i + 1], max_three_num[i]
 
-    return max_three_num
+    return max_three_num[::-1]
 
 if __name__ == '__main__':
-    print calc_three_largest_number(sys.argv[1])
+    data = read_file(sys.argv[1])
+    print calc_three_largest_number(data)
